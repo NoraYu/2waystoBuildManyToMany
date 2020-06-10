@@ -9,6 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<button><a th:href="@{/deleteJava}">deleteJava</a> </button>
+<button><a th:href="@{/deleteJohn}">deleteJohn</a> </button>
+<button><a th:href="@{/deleteNora}">deleteNora</a> </button>
+<button><a th:href="@{/}">home</a> </button>
 <div th:each="course:${courses}">
         Course: <p th:text="${course.title}"></p>
     Instructors <p th:text="${course.showInstructors()}"></p>

@@ -14,7 +14,8 @@ public class HomeController {
     StudentRepository studentRepository;
     @Autowired
     CourseRepository courseRepository;
-
+    @Autowired
+    InstructorRepository instructorRepository;
 
 
     @RequestMapping("/")
@@ -34,7 +35,7 @@ public class HomeController {
         Instructor sue=new Instructor("Sue");
         Instructor nora=new Instructor("Nora");
         Course course1 = new Course();
-        course1.setTitle("Java101");
+        course1.setTitle("Java");
         course1.setCredits(4);
         course1.addInstructor(sue);
         course1.addInstructor(nora);
@@ -64,6 +65,33 @@ public class HomeController {
 
 
 
+    }
+
+    @RequestMapping("/deleteJohn")
+    public String deletestudent(Model model){
+        Student s= studentRepository.findByName("John");
+        for(Course c:s.getCourses()){
+            c.getStudent().remove(s);
+        }
+        s.setCourses(null);
+        studentRepository.delete(s);
+        return "delete";
+    }
+    @RequestMapping("/deleteJava")
+    public String deleteJava(Model model){
+        Course java=courseRepository.findByTitle("Java");
+        for(Student s: java.getStudents()){
+            s.getCourses().remove(java);
+        }
+        java.setStudents(null);
+        courseRepository.delete(java);
+        return "delete";
+    }
+    @RequestMapping("/deleteNora")
+    public String deleteNora(Model model){
+        Instructor nora=instructorRepository.findByName("Nora");
+        instructorRepository.delete(nora);
+        return "delete";
     }
 }
 
